@@ -46,111 +46,107 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
       <Card className="p-4">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Current conditions</h2>
         
-        {/* Risk Level Gauge */}
-        <div className="flex items-center justify-center mb-4">
-          <div className="relative w-32 h-16">
-            {/* Semi-circle gauge background */}
-            <div className="absolute inset-0">
-              <svg viewBox="0 0 100 50" className="w-full h-full">
-                {/* Background arc */}
-                <path
-                  d="M 10 40 A 30 30 0 0 1 90 40"
-                  stroke="#e5e7eb"
-                  strokeWidth="8"
-                  fill="none"
-                />
-                {/* Active arc */}
-                <path
-                  d="M 10 40 A 30 30 0 0 1 90 40"
-                  stroke={riskColor}
-                  strokeWidth="8"
-                  fill="none"
-                  strokeDasharray={`${(riskNumeric / 5) * 125} 125`}
-                  className="transition-all duration-500"
-                />
+        {/* Layout with Risk Gauge and Weather Data */}
+        <div className="flex items-start space-x-6 mb-4">
+          {/* Risk Level Gauge */}
+          <div className="flex-shrink-0">
+            <div className="relative w-20 h-12">
+              <svg viewBox="0 0 100 60" className="w-full h-full">
+                {/* Background arc segments */}
+                <path d="M 15 45 A 25 25 0 0 1 45 20" stroke="#22c55e" strokeWidth="8" fill="none" />
+                <path d="M 45 20 A 25 25 0 0 1 55 20" stroke="#eab308" strokeWidth="8" fill="none" />
+                <path d="M 55 20 A 25 25 0 0 1 85 45" stroke="#ef4444" strokeWidth="8" fill="none" />
+                
                 {/* Needle */}
                 <line
                   x1="50"
-                  y1="40"
-                  x2={50 + 25 * Math.cos((Math.PI * (riskNumeric - 1)) / 4 - Math.PI)}
-                  y2={40 + 25 * Math.sin((Math.PI * (riskNumeric - 1)) / 4 - Math.PI)}
+                  y1="45"
+                  x2={50 + 20 * Math.cos(Math.PI - (Math.PI * (riskNumeric - 1)) / 4)}
+                  y2={45 - 20 * Math.sin(Math.PI - (Math.PI * (riskNumeric - 1)) / 4)}
                   stroke="#374151"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
-                <circle cx="50" cy="40" r="3" fill="#374151" />
+                <circle cx="50" cy="45" r="2" fill="#374151" />
               </svg>
             </div>
-            {/* Risk label */}
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-              <span 
-                className="text-sm font-medium px-2 py-1 rounded-full"
-                style={{ 
-                  backgroundColor: `${riskColor}1a`,
-                  color: riskColor
-                }}
-              >
-                {scenario.riskLevel} risk
-              </span>
+            <div className="text-center mt-1">
+              <span className="text-sm font-medium text-gray-900">{scenario.riskLevel} risk</span>
             </div>
           </div>
-        </div>
 
-        {/* Weather Data Grid */}
-        <div className="grid grid-cols-3 gap-4 mb-4">
-          {/* Pollen Count */}
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-2">
-              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                <i className="fas fa-seedling text-orange-600"></i>
+          {/* Weather Data Grid */}
+          <div className="flex-1 grid grid-cols-2 gap-3">
+            {/* Pollen Count */}
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                <i className="fas fa-seedling text-orange-600 text-sm"></i>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-gray-900">{scenario.grassPollen}</div>
+                <div className="text-xs text-gray-600">grains/m3</div>
               </div>
             </div>
-            <div className="text-lg font-semibold text-gray-900">{scenario.grassPollen}</div>
-            <div className="text-xs text-gray-600">grain/m3</div>
-          </div>
 
-          {/* Temperature */}
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-2">
-              <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
-                <i className="fas fa-thermometer-half text-yellow-600"></i>
+            {/* Wind */}
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <i className="fas fa-wind text-blue-600 text-sm"></i>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-gray-900">{scenario.windSpeed}</div>
+                <div className="text-xs text-gray-600">km/h</div>
               </div>
             </div>
-            <div className="text-lg font-semibold text-gray-900">{scenario.temperature}°C</div>
-            <div className="text-xs text-gray-600">Feels like 27°</div>
-          </div>
 
-          {/* Wind */}
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-2">
-              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                <i className="fas fa-wind text-blue-600"></i>
+            {/* Temperature */}
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
+                <i className="fas fa-thermometer-half text-yellow-600 text-sm"></i>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-gray-900">{scenario.temperature}°C</div>
+                <div className="text-xs text-gray-600">Feels like 27°</div>
               </div>
             </div>
-            <div className="text-lg font-semibold text-gray-900">{scenario.windSpeed}km/h</div>
-            <div className="text-xs text-gray-600">{scenario.windDirection} East</div>
+
+            {/* Humidity */}
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <i className="fas fa-tint text-blue-600 text-sm"></i>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-gray-900">{scenario.humidity}%</div>
+                <div className="text-xs text-gray-600">humidity</div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Conditions Description */}
-        <p className="text-sm text-gray-600 mb-3">
+        <p className="text-sm text-gray-700 mb-4 text-left">
           {scenario.conditions}. Conditions to persist until evening southerly change.
         </p>
 
         {/* Basic Recommendations */}
-        <div className="bg-gray-50 rounded-lg p-3">
-          <h3 className="font-medium text-gray-900 mb-2">Recommendations</h3>
-          <div className="flex items-start space-x-2">
-            <span className="font-medium text-blue-600">7:00AM</span>
-            <div className="flex-1">
-              <p className="text-sm text-gray-700">
-                Good morning! Today's looking moderately challenging - grass pollen (38 grains/m³) and northeasterly winds 🌬️
-                <br />
-                <span className="inline-flex items-center space-x-1 mt-1">
-                  <i className="fas fa-pills text-yellow-500 text-xs"></i>
-                  <span className="text-xs">Don't forget to take your antihistamine and try to stay indoor till after 10AM.</span>
-                </span>
-              </p>
+        <div>
+          <h3 className="font-semibold text-gray-900 mb-3 text-left">Recommendations</h3>
+          <div className="space-y-3">
+            <div className="text-left">
+              <div className="flex items-start space-x-3">
+                <span className="font-semibold text-blue-600 flex-shrink-0">7:00AM</span>
+                <div className="flex-1">
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    Good morning! Today's looking moderately challenging - grass pollen ({scenario.grassPollen} grains/m³) and northeasterly winds 🌬️
+                  </p>
+                  <div className="flex items-start space-x-2 mt-2">
+                    <i className="fas fa-pills text-yellow-500 text-sm mt-0.5 flex-shrink-0"></i>
+                    <p className="text-sm text-gray-700">
+                      Don't forget to take your antihistamine and try to stay indoor till after 10AM.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
