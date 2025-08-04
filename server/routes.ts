@@ -136,14 +136,11 @@ MELBOURNE CONTEXT:
 
 CURRENT FLOW: ${flow}
 
-GUIDELINES:
-- Be conversational and concise (max 100 words)
-- Give 2-3 specific actionable recommendations
-- Reference key data points briefly
-- Include confidence level
-- Suggest one alternative when saying no
-- Use Melbourne context naturally
-- Focus on immediate practical advice
+CRITICAL RESPONSE RULES:
+- Maximum 25 words total - count every word
+- Plain text only - absolutely NO asterisks, dashes, bullets, formatting
+- One clear recommendation only
+- End with confidence level
 
 Respond as PollenPilot would to help this Melbourne resident manage their hayfever effectively.`;
 

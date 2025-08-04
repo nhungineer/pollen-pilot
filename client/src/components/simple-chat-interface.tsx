@@ -134,7 +134,17 @@ export function SimpleChatInterface({
                         ? 'bg-blue-500 text-white ml-auto' 
                         : 'bg-gray-50'
                     }`}>
-                      <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                      {message.role === 'assistant' ? (
+                        <div className="text-sm" dangerouslySetInnerHTML={{ 
+                          __html: message.content
+                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                            .replace(/- (.*?)$/gm, '• $1')
+                            .replace(/\n/g, '<br>')
+                        }} />
+                      ) : (
+                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                      )}
                     </div>
                     
                     {message.role === 'assistant' && (

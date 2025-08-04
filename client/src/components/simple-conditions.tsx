@@ -7,6 +7,37 @@ interface SimpleConditionsProps {
   onScenarioChange: (scenarioName: string) => void;
 }
 
+// Helper functions for scenario-specific recommendations
+const getScenarioRecommendation = (scenario: PollenScenario) => {
+  switch (scenario.name) {
+    case "Classic Bad Day - Melbourne Cup Day":
+      return `Good morning! Today's looking very challenging - grass pollen (${scenario.grassPollen} grains/m³) and gusty northerly winds. Perfect day to take your antihistamine with breakfast.`;
+    case "Deceptive Calm":
+      return `Good morning! Today's looking moderately challenging - grass pollen (${scenario.grassPollen} grains/m³) and northeasterly winds 🌬️`;
+    case "Thunderstorm Asthma Risk":
+      return `Good morning! Today's looking very challenging - grass pollen (${scenario.grassPollen} grains/m³) with storm risk. Take your antihistamine now and monitor weather alerts.`;
+    case "Southerly Relief":
+      return `Good morning! Today's looking much better - low grass pollen (${scenario.grassPollen} grains/m³) with clean southerly winds bringing relief.`;
+    default:
+      return `Good morning! Today's looking moderately challenging - grass pollen (${scenario.grassPollen} grains/m³) and northeasterly winds 🌬️`;
+  }
+};
+
+const getScenarioAdvice = (scenario: PollenScenario) => {
+  switch (scenario.name) {
+    case "Classic Bad Day - Melbourne Cup Day":
+      return "Don't forget to take your antihistamine and try to stay indoor till after 10AM.";
+    case "Deceptive Calm":
+      return "Don't forget to take your antihistamine and try to stay indoor till after 10AM.";
+    case "Thunderstorm Asthma Risk":
+      return "Stay indoors when storms hit - pollen fragments become more dangerous during rain.";
+    case "Southerly Relief":
+      return "Great day for outdoor activities! Windows can stay open with these clean southerly winds.";
+    default:
+      return "Don't forget to take your antihistamine and try to stay indoor till after 10AM.";
+  }
+};
+
 export function SimpleConditions({ scenario, onScenarioChange }: SimpleConditionsProps) {
   const riskColor = getRiskLevelColor(scenario.riskLevel);
   
@@ -133,16 +164,16 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
           <h3 className="font-semibold text-gray-900 mb-3 text-left">Recommendations</h3>
           <div className="space-y-3">
             <div className="text-left">
-              <div className="flex items-start space-x-3">
-                <span className="font-semibold text-blue-600 flex-shrink-0">7:00AM</span>
-                <div className="flex-1">
+              <div className="space-y-2">
+                <div className="font-semibold text-blue-600">7:00AM</div>
+                <div className="space-y-2">
                   <p className="text-sm text-gray-700 leading-relaxed">
-                    Good morning! Today's looking moderately challenging - grass pollen ({scenario.grassPollen} grains/m³) and northeasterly winds 🌬️
+                    {getScenarioRecommendation(scenario)}
                   </p>
-                  <div className="flex items-start space-x-2 mt-2">
+                  <div className="flex items-start space-x-2">
                     <i className="fas fa-pills text-yellow-500 text-sm mt-0.5 flex-shrink-0"></i>
                     <p className="text-sm text-gray-700">
-                      Don't forget to take your antihistamine and try to stay indoor till after 10AM.
+                      {getScenarioAdvice(scenario)}
                     </p>
                   </div>
                 </div>
