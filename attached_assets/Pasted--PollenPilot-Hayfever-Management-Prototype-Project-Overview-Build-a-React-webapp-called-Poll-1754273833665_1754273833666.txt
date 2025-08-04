@@ -1,0 +1,210 @@
+# PollenPilot - Hayfever Management Prototype
+
+## Project Overview
+Build a React webapp called "PollenPilot" for testing AI-powered hayfever management with Melbourne users. This is a prototype to validate user interaction patterns and AI recommendation quality before building a full native app.
+
+## Core Functionality Requirements
+
+### 1. Three Guided User Flows
+**Flow 1: Morning Check-in**
+- User opens app → Sees current risk level + brief explanation → Gets proactive recommendations → Can ask follow-up questions
+- Example: AI says "Extreme pollen forecast today, hot and windy. Take antihistamine and nasal spray, avoid outdoors..." 
+- User responds: "But I have a picnic planned with friends for months"
+- AI provides practical alternatives: wear mask, sunglasses, choose indoor/outdoor venue, nasal rinse after, clothing change, eye drops, offers midday check-in
+
+**Flow 2: Activity Planning** 
+- User asks specific timing questions → AI checks scenario data → Provides specific timing advice + alternatives → User can dig deeper
+- Example: "Is it safe to run at 8am?" → AI explains morning pollen patterns (5am-10am peak), cites wind conditions, suggests afternoon alternative after forecasted rain (3:30-4pm)
+
+**Flow 3: Bad Day Recovery**
+- User feeling symptoms → Opens app → Gets validation + immediate relief → Asks about rest of day planning
+- Example: "Why do I feel terrible? Itchy eyes, runny nose, breathing issues" → AI validates with current data + peer context, suggests immediate relief (antihistamine, mask, nasal rinse), asks about day's activities, offers tomorrow's forecast
+
+### 2. Mock Scenario System
+Create 4 realistic Melbourne scenarios with JSON data:
+
+**Scenario A: "Classic Bad Day"**
+```json
+{
+  "name": "Classic Bad Day - Melbourne Cup Day",
+  "date": "November 6, 2024",
+  "grassPollen": 85,
+  "windSpeed": 24,
+  "windDirection": "North",
+  "temperature": 29,
+  "humidity": 42,
+  "riskLevel": "Very High",
+  "conditions": "Hot northerly winds bringing pollen from countryside",
+  "confidence": "High - matches historical Cup Day patterns"
+}
+```
+
+**Scenario B: "Deceptive Calm"**
+```json
+{
+  "name": "Deceptive Calm",
+  "date": "October 15, 2024", 
+  "grassPollen": 45,
+  "windSpeed": 6,
+  "windDirection": "Variable",
+  "temperature": 22,
+  "humidity": 68,
+  "riskLevel": "Moderate",
+  "conditions": "Still air, moderate pollen - easy to underestimate",
+  "confidence": "Moderate - pollen can vary in calm conditions"
+}
+```
+
+**Scenario C: "Thunderstorm Asthma Alert"**
+```json
+{
+  "name": "Thunderstorm Asthma Risk",
+  "date": "November 18, 2024",
+  "grassPollen": 72,
+  "windSpeed": 18,
+  "windDirection": "Changing",
+  "temperature": 26,
+  "humidity": 85,
+  "riskLevel": "Extreme",
+  "conditions": "Thunderstorm approaching with high pollen - dangerous combination",
+  "confidence": "High - enhanced forecasting system active since 2017"
+}
+```
+
+**Scenario D: "Good Day"**
+```json
+{
+  "name": "Southerly Relief",
+  "date": "November 12, 2024",
+  "grassPollen": 15,
+  "windSpeed": 12,
+  "windDirection": "South", 
+  "temperature": 19,
+  "humidity": 58,
+  "riskLevel": "Low",
+  "conditions": "Cool southerly winds from ocean clearing the air",
+  "confidence": "High - southerlies consistently bring relief"
+}
+```
+
+### 3. Claude API Integration
+Implement real Claude Sonnet API calls with comprehensive system prompts including:
+
+**Melbourne Context:**
+- Grass pollen season: September - late December, peak late November/early December
+- Main culprits: rye grass (plus birch, elm, cypress trees)
+- Pollen classification: 0-19 (LOW), 20-49 (MODERATE), 50-99 (HIGH), ≥100 (EXTREME)
+- Hot northerly winds = worst conditions (bring pollen from countryside)
+- Cool southerly winds = relief (pollen-free ocean air)
+- Thunderstorm asthma risk when pollen >50 + humidity >80% + storm conditions
+- Melbourne has 20+ years of pollen data - reference for confidence
+- Public holidays during season: AFL Grand Final Friday (late Sept), Melbourne Cup Day (first Mon Nov)
+
+**AI Personality Guidelines:**
+- Conversational and empathetic, not clinical
+- Always provide actionable advice, not just information
+- Reference specific data points for trust-building
+- Suggest alternatives when advising against activities
+- Use Melbourne-specific context naturally
+- Include confidence indicators ("High confidence: matches 2023 patterns")
+- Validate user feelings, especially in Flow 3
+
+### 4. Technical Architecture
+```
+React App Structure:
+├── App.js (main component with state management)
+├── components/
+│   ├── ScenarioSelector.js
+│   ├── CurrentConditions.js  
+│   ├── ProactiveAlerts.js
+│   ├── ChatInterface.js
+│   └── FlowGuide.js
+├── data/
+│   ├── scenarios.json
+│   └── proactiveMessages.json
+├── services/
+│   └── claudeAPI.js
+└── utils/
+    └── riskCalculator.js
+```
+
+**Key Features:**
+- Mobile-responsive design (primary use case)
+- Scenario switching dropdown
+- Real-time chat with Claude API
+- Proactive notification simulation
+- Flow-guided testing mode
+- Confidence indicators in responses
+- Risk level visualization with Melbourne pollen scale
+
+### 5. Claude API Implementation
+```javascript
+const claudeResponse = await fetch("https://api.anthropic.com/v1/messages", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    model: "claude-sonnet-4-20250514",
+    max_tokens: 800,
+    messages: [{
+      role: "user", 
+      content: `You are PollenPilot, Melbourne's AI hayfever management assistant.
+
+CURRENT CONDITIONS: ${scenario.conditions}
+Grass pollen: ${scenario.grassPollen} grains/m³ (${scenario.riskLevel})
+Wind: ${scenario.windSpeed}km/h ${scenario.windDirection}  
+Temperature: ${scenario.temperature}°C, Humidity: ${scenario.humidity}%
+Confidence: ${scenario.confidence}
+Time: ${currentTime}
+
+MELBOURNE CONTEXT:
+- Peak pollen season: late November/early December
+- Rye grass main trigger, plus birch/elm/cypress
+- Northerly winds = danger (countryside pollen), Southerly = relief (ocean air)
+- Thunderstorm asthma risk: pollen >50 + humidity >80% + storms
+- 20+ years Melbourne pollen data available for patterns
+
+GUIDELINES:
+- Be conversational, empathetic, not clinical
+- Always give actionable advice with specific timing
+- Reference data points for trust ("based on 20 years data...")
+- Include confidence levels in recommendations
+- Suggest alternatives when saying no to activities
+- Use Melbourne landmarks/areas naturally
+- For Flow 3 (bad days): validate feelings, immediate relief, forward planning
+
+USER QUERY: ${userQuery}`
+    }]
+  })
+});
+```
+
+### 6. Testing Features
+- **Flow Mode Toggle:** Users can switch between free-form chat and guided flow testing
+- **Scenario Comparison:** Quick switching to test AI responses across different conditions  
+- **Response Rating:** Simple thumbs up/down to gather feedback on AI quality
+- **Conversation Export:** Save chat logs for analysis
+
+### 7. UI/UX Requirements
+- **Mobile-first design** (primary testing environment)
+- **Clean, medical-app aesthetic** with trust signals
+- **Clear risk visualization** using Melbourne's pollen scale colors
+- **Prominent confidence indicators** in AI responses
+- **Easy scenario switching** for testing different conditions
+- **Proactive alert simulation** showing timed notifications
+- **Accessible design** for users during hayfever symptoms
+
+## Success Criteria for Prototype
+- Users can naturally complete all 3 flows
+- AI responses feel authentic and Melbourne-specific  
+- Users understand and trust the confidence indicators
+- Clear preference emerges between proactive vs reactive modes
+- Actionable feedback on AI personality and detail level
+
+## Development Priority
+1. Core chat functionality with Claude API
+2. Melbourne scenario data and system prompts
+3. Three guided flows implementation
+4. Mobile-responsive UI
+5. Testing and feedback features
+
+Build this as a production-ready prototype that real Melbourne hayfever sufferers can test on their phones during the 2024 pollen season (September-December).
