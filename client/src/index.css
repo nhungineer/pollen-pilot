@@ -1,9 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background: 249 250 251;
+  --foreground: 17 24 39;
+  --card: 255 255 255;
+  --card-foreground: 17 24 39;
+  --primary: 79 70 229;
+  --primary-foreground: 255 255 255;
+  --secondary: 243 244 246;
+  --secondary-foreground: 17 24 39;
+  --muted: 243 244 246;
+  --muted-foreground: 107 114 128;
+  --accent: 243 244 246;
+  --accent-foreground: 17 24 39;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 229 231 235;
+  --input: 229 231 235;
+  --ring: 79 70 229;
+  --radius: 12px;
+}
+
+.dark {
+  --background: 17 24 39;
+  --foreground: 243 244 246;
+  --card: 31 41 55;
+  --card-foreground: 243 244 246;
+  --primary: 99 102 241;
+  --primary-foreground: 255 255 255;
+  --secondary: 55 65 81;
+  --secondary-foreground: 243 244 246;
+  --muted: 55 65 81;
+  --muted-foreground: 156 163 175;
+  --accent: 55 65 81;
+  --accent-foreground: 243 244 246;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 55 65 81;
+  --input: 55 65 81;
+  --ring: 99 102 241;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-feature-settings: 'cv11', 'ss01';
+  font-variation-settings: 'opsz' 32;
+}
 
 :root {
   --background: hsl(0, 0%, 100%);

@@ -116,20 +116,20 @@ export function SimpleChatInterface({
     <div className="p-4">
       {/* Ask PollenPilot Section */}
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Ask PollenPilot</h3>
-        <p className="text-sm text-gray-600 mb-4">Chat with me for more specific recommendations</p>
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">Ask PollenPilot</h3>
+        <p className="text-base text-gray-600 mb-6">Chat with me for more specific recommendations</p>
 
 
 
         {/* Initial AI Message */}
-        <Card className="border border-gray-200 mb-4">
-          <div className="p-4 space-y-4">
-            <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <i className="fas fa-seedling text-white text-xs"></i>
+        <Card className="border-0 shadow-lg rounded-2xl mb-6 bg-gradient-to-br from-white to-gray-50/30">
+          <div className="p-6 space-y-4">
+            <div className="flex items-start space-x-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                <i className="fas fa-seedling text-white text-sm"></i>
               </div>
               <div className="flex-1">
-                <div className="bg-gray-50 rounded-lg p-3">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-4 shadow-sm">
                   <p className="text-sm text-gray-700 leading-relaxed">
                     {getScenarioRecommendation(scenario)}
                   </p>
@@ -141,21 +141,21 @@ export function SimpleChatInterface({
 
         {/* Chat Messages */}
         {messages.length > 0 && (
-          <Card className="border border-gray-200 mb-4">
+          <Card className="border-0 shadow-lg rounded-2xl mb-6 bg-gradient-to-br from-white to-gray-50/30">
             <div className="p-4 space-y-4 max-h-96 overflow-y-auto">
               {messages.map((message, index) => (
                 <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'space-x-3'}`}>
                   {message.role === 'assistant' && (
-                    <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-                      <i className="fas fa-seedling text-white text-xs"></i>
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <i className="fas fa-seedling text-white text-sm"></i>
                     </div>
                   )}
                   
                   <div className={`flex-1 ${message.role === 'user' ? 'max-w-xs' : ''}`}>
-                    <div className={`rounded-lg p-3 ${
+                    <div className={`rounded-2xl p-4 ${
                       message.role === 'user' 
-                        ? 'bg-blue-500 text-white ml-auto' 
-                        : 'bg-gray-50'
+                        ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white ml-auto shadow-lg' 
+                        : 'bg-gradient-to-br from-gray-50 to-gray-100/50 shadow-sm'
                     }`}>
                       {message.role === 'assistant' ? (
                         <div className="text-sm" dangerouslySetInnerHTML={{ 
@@ -182,12 +182,12 @@ export function SimpleChatInterface({
               ))}
 
               {sendMessageMutation.isPending && (
-                <div className="flex space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <i className="fas fa-seedling text-white text-xs"></i>
+                <div className="flex space-x-4">
+                  <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <i className="fas fa-seedling text-white text-sm"></i>
                   </div>
                   <div className="flex-1">
-                    <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-4 shadow-sm">
                       <div className="flex space-x-1">
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -204,22 +204,22 @@ export function SimpleChatInterface({
         )}
 
         {/* Chat Input */}
-        <div className="flex space-x-2 mb-4">
+        <div className="flex space-x-3 mb-6">
           <Input
             type="text"
             placeholder="e.g. Should I walk the dog at 3?"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-            className="flex-1 text-sm"
+            className="flex-1 text-base border-0 bg-white rounded-2xl shadow-sm px-5 py-4 focus:ring-2 focus:ring-indigo-500 focus:shadow-lg transition-all duration-200"
             disabled={sendMessageMutation.isPending}
           />
           <Button 
             onClick={handleSendMessage}
             disabled={!inputMessage.trim() || sendMessageMutation.isPending}
-            className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+            className="px-6 py-4 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 transition-all duration-200 rounded-2xl shadow-lg hover:shadow-xl border-0"
           >
-            <i className="fas fa-paper-plane text-sm"></i>
+            <i className="fas fa-paper-plane text-base"></i>
           </Button>
         </div>
 
@@ -234,14 +234,14 @@ export function SimpleChatInterface({
                 <Button
                   key={index}
                   variant="outline"
-                  className="w-full justify-start text-left h-auto py-3 px-4 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+                  className="w-full justify-start text-left h-auto py-4 px-5 bg-gradient-to-br from-indigo-50 to-blue-50 border-0 text-indigo-700 hover:from-indigo-100 hover:to-blue-100 transition-all duration-200 rounded-2xl shadow-sm hover:shadow-md"
                   onClick={() => handleSuggestedClick(question)}
                 >
-                  <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <i className="fas fa-comment text-blue-600 text-xs"></i>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                      <i className="fas fa-comment text-indigo-600 text-sm"></i>
                     </div>
-                    <span className="text-sm">{question}</span>
+                    <span className="text-base font-medium">{question}</span>
                   </div>
                 </Button>
               ))}
