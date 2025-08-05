@@ -59,7 +59,7 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
       </div>
 
       {/* Current Conditions Card */}
-      <Card className="p-4">
+      <Card className="p-4 pb-2">
         {/* Layout with Circular Risk Gauge and Weather Data */}
         <div className="flex items-start space-x-6 mb-6">
           {/* Circular Risk Level Gauge */}
@@ -149,10 +149,21 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
           </div>
         </div>
 
+        {/* Data Source Caption */}
+        <div className="mt-4 pt-2 border-t border-gray-100">
+          <p className="text-xs text-gray-400">
+            Source: BOM, Melbourne Pollen, last updated {new Date().toLocaleTimeString('en-AU', { 
+              hour: '2-digit', 
+              minute: '2-digit',
+              timeZone: 'Australia/Melbourne'
+            })}
+          </p>
+        </div>
+
       </Card>
       
       {/* App Recommendation Box - Moved outside */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-2">
         <p className="text-sm text-gray-700 leading-relaxed">
           {getScenarioRecommendation(scenario)}
         </p>
