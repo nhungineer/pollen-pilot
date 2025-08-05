@@ -7,21 +7,6 @@ interface SimpleConditionsProps {
   onScenarioChange: (scenarioName: string) => void;
 }
 
-// Helper functions for scenario-specific recommendations with emojis
-const getScenarioRecommendation = (scenario: PollenScenario) => {
-  switch (scenario.name) {
-    case "Classic Bad Day - Melbourne Cup Day":
-      return `👋 Morning, today's looking challenging 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) and gusty northerly 💨. Don't forget to take antihistamine 💊, and stay indoor 🏡 till after 3PM.`;
-    case "Deceptive Calm":
-      return `👋 Morning! Today's moderate challenge 😐 - grass pollen 🌾 (${scenario.grassPollen} grains/m³) with light winds 💨. Take your antihistamine 💊 and limit outdoor time 🏡 till afternoon.`;
-    case "Thunderstorm Asthma Risk":
-      return `⚠️ Morning alert! Very challenging day 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) with storm risk ⛈️. Take antihistamine 💊 now and stay indoors 🏡 when storms hit.`;
-    case "Southerly Relief":
-      return `👋 Great morning! 😊 Low pollen day 🌾 (${scenario.grassPollen} grains/m³) with clean southerly winds 💨. Perfect for outdoor activities 🚶‍♂️ and opening windows 🪟.`;
-    default:
-      return `👋 Morning! Today's moderate challenge 😐 - grass pollen 🌾 (${scenario.grassPollen} grains/m³) with light winds 💨. Take your antihistamine 💊 and limit outdoor time 🏡.`;
-  }
-};
 
 export function SimpleConditions({ scenario, onScenarioChange }: SimpleConditionsProps) {
   const riskColor = getRiskLevelColor(scenario.riskLevel);
@@ -56,13 +41,6 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
             ))}
           </SelectContent>
         </Select>
-      </div>
-
-      {/* App Recommendation Box - Moved above conditions */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-        <p className="text-sm text-gray-700 leading-relaxed">
-          {getScenarioRecommendation(scenario)}
-        </p>
       </div>
 
       {/* Current Conditions Card */}
@@ -160,7 +138,7 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
         </div>
 
         {/* Data Source Caption */}
-        <div className="mt-4 pt-2 border-t border-gray-100">
+        <div className="mt-2 pt-2 border-t border-gray-100">
           <p className="text-xs text-gray-400">
             Source: BOM, Melbourne Pollen, last updated {new Date().toLocaleTimeString('en-AU', { 
               hour: '2-digit', 

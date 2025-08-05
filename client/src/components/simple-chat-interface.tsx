@@ -7,6 +7,22 @@ import { useMutation } from "@tanstack/react-query";
 import { sendMessage, type ChatMessage } from "@/services/claude-api";
 import { type PollenScenario } from "@/data/scenarios";
 
+// Helper function for scenario-specific recommendations with emojis
+const getScenarioRecommendation = (scenario: PollenScenario) => {
+  switch (scenario.name) {
+    case "Classic Bad Day - Melbourne Cup Day":
+      return `👋 Morning, today's looking challenging 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) and gusty northerly 💨. Don't forget to take antihistamine 💊, and stay indoor 🏡 till after 3PM.`;
+    case "Deceptive Calm":
+      return `👋 Morning! Today's moderate challenge 😐 - grass pollen 🌾 (${scenario.grassPollen} grains/m³) with light winds 💨. Take your antihistamine 💊 and limit outdoor time 🏡 till afternoon.`;
+    case "Thunderstorm Asthma Risk":
+      return `⚠️ Morning alert! Very challenging day 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) with storm risk ⛈️. Take antihistamine 💊 now and stay indoors 🏡 when storms hit.`;
+    case "Southerly Relief":
+      return `👋 Great morning! 😊 Low pollen day 🌾 (${scenario.grassPollen} grains/m³) with clean southerly winds 💨. Perfect for outdoor activities 🚶‍♂️ and opening windows 🪟.`;
+    default:
+      return `👋 Morning! Today's moderate challenge 😐 - grass pollen 🌾 (${scenario.grassPollen} grains/m³) with light winds 💨. Take your antihistamine 💊 and limit outdoor time 🏡.`;
+  }
+};
+
 interface SimpleChatInterfaceProps {
   sessionId: string | null;
   scenario: PollenScenario;
@@ -101,9 +117,27 @@ export function SimpleChatInterface({
       {/* Ask PollenPilot Section */}
       <div className="mb-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">Ask PollenPilot</h3>
-        <p className="text-sm text-gray-600 mb-4">Get personalised recommendations based on your plan</p>
+        <p className="text-sm text-gray-600 mb-4">Chat with me for more specific recommendations</p>
 
 
+
+        {/* Initial AI Message */}
+        <Card className="border border-gray-200 mb-4">
+          <div className="p-4 space-y-4">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-white text-sm font-bold">P</span>
+              </div>
+              <div className="flex-1">
+                <div className="bg-blue-50 rounded-lg p-3">
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {getScenarioRecommendation(scenario)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
 
         {/* Chat Messages */}
         {messages.length > 0 && (
