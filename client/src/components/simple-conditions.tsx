@@ -46,13 +46,13 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
       {/* Current Conditions Card */}
       <Card className="p-6 pb-4 border-0 shadow-lg rounded-2xl bg-gradient-to-br from-white to-gray-50/30">
         {/* Layout with Circular Risk Gauge and Weather Data */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-6 mb-4">
+        <div className="flex items-start space-x-6 mb-2">
           {/* Circular Risk Level Gauge */}
-          <div className="flex-shrink-0 mb-4 lg:mb-0">
+          <div className="flex-shrink-0">
             <div className="text-center mb-3">
               <p className="text-sm text-gray-700 font-semibold tracking-wide">Hay fever risk</p>
             </div>
-            <div className="relative mx-auto lg:mx-0" style={{ width: '116px', height: '116px' }}>
+            <div className="relative w-29 h-29" style={{ width: '116px', height: '116px' }}>
               <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
                 {/* Background circle */}
                 <circle 
@@ -90,8 +90,8 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
             </div>
           </div>
 
-          {/* Weather Data Grid */}
-          <div className="flex-1 grid grid-cols-2 gap-4 lg:gap-3">
+            {/* Weather Data Grid */}
+            <div className="flex-1 grid grid-cols-2 gap-3">
             {/* Pollen Count */}
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center flex-shrink-0 shadow-sm">

@@ -123,8 +123,8 @@ export function SimpleChatInterface({
 
         {/* Initial AI Message */}
         <Card className="border-0 shadow-lg rounded-2xl mb-6 bg-gradient-to-br from-white to-gray-50/30">
-          <div className="p-6 space-y-3">
-            <div className="flex items-start space-x-3">
+          <div className="p-6 space-y-4">
+            <div className="flex items-start space-x-4">
               <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 2L13.5 8.5L20 7L14.5 12L20 17L13.5 15.5L12 22L10.5 15.5L4 17L9.5 12L4 7L10.5 8.5L12 2Z" fill="white"/>
@@ -138,9 +138,6 @@ export function SimpleChatInterface({
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="ml-13">
-              <p className="text-xs text-gray-400">7:00 AM</p>
             </div>
           </div>
         </Card>
@@ -223,7 +220,7 @@ export function SimpleChatInterface({
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-            className="flex-1 text-base border-2 border-gray-200 bg-white rounded-2xl shadow-sm px-5 py-4 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:shadow-xl focus:shadow-blue-100/50 transition-all duration-200 outline-none"
+            className="flex-1 text-base border-0 bg-white rounded-2xl shadow-sm px-5 py-4 focus:ring-2 focus:ring-indigo-500 focus:shadow-lg transition-all duration-200"
             disabled={sendMessageMutation.isPending}
           />
           <Button 
