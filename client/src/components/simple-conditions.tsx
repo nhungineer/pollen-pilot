@@ -7,34 +7,19 @@ interface SimpleConditionsProps {
   onScenarioChange: (scenarioName: string) => void;
 }
 
-// Helper functions for scenario-specific recommendations
+// Helper functions for scenario-specific recommendations with emojis
 const getScenarioRecommendation = (scenario: PollenScenario) => {
   switch (scenario.name) {
     case "Classic Bad Day - Melbourne Cup Day":
-      return `Good morning! Today's looking very challenging - grass pollen (${scenario.grassPollen} grains/m³) and gusty northerly winds. Perfect day to take your antihistamine with breakfast.`;
+      return `👋 Morning, today's looking challenging 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) and gusty northerly 💨. Don't forget to take antihistamine 💊, and stay indoor 🏡 till after 3PM.`;
     case "Deceptive Calm":
-      return `Good morning! Today's looking moderately challenging - grass pollen (${scenario.grassPollen} grains/m³) and northeasterly winds 🌬️`;
+      return `👋 Morning! Today's moderate challenge 😐 - grass pollen 🌾 (${scenario.grassPollen} grains/m³) with light winds 💨. Take your antihistamine 💊 and limit outdoor time 🏡 till afternoon.`;
     case "Thunderstorm Asthma Risk":
-      return `Good morning! Today's looking very challenging - grass pollen (${scenario.grassPollen} grains/m³) with storm risk. Take your antihistamine now and monitor weather alerts.`;
+      return `⚠️ Morning alert! Very challenging day 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) with storm risk ⛈️. Take antihistamine 💊 now and stay indoors 🏡 when storms hit.`;
     case "Southerly Relief":
-      return `Good morning! Today's looking much better - low grass pollen (${scenario.grassPollen} grains/m³) with clean southerly winds bringing relief.`;
+      return `👋 Great morning! 😊 Low pollen day 🌾 (${scenario.grassPollen} grains/m³) with clean southerly winds 💨. Perfect for outdoor activities 🚶‍♂️ and opening windows 🪟.`;
     default:
-      return `Good morning! Today's looking moderately challenging - grass pollen (${scenario.grassPollen} grains/m³) and northeasterly winds 🌬️`;
-  }
-};
-
-const getScenarioAdvice = (scenario: PollenScenario) => {
-  switch (scenario.name) {
-    case "Classic Bad Day - Melbourne Cup Day":
-      return "Don't forget to take your antihistamine and try to stay indoor till after 10AM.";
-    case "Deceptive Calm":
-      return "Don't forget to take your antihistamine and try to stay indoor till after 10AM.";
-    case "Thunderstorm Asthma Risk":
-      return "Stay indoors when storms hit - pollen fragments become more dangerous during rain.";
-    case "Southerly Relief":
-      return "Great day for outdoor activities! Windows can stay open with these clean southerly winds.";
-    default:
-      return "Don't forget to take your antihistamine and try to stay indoor till after 10AM.";
+      return `👋 Morning! Today's moderate challenge 😐 - grass pollen 🌾 (${scenario.grassPollen} grains/m³) with light winds 💨. Take your antihistamine 💊 and limit outdoor time 🏡.`;
   }
 };
 
@@ -79,7 +64,7 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
         <div className="flex items-start space-x-6 mb-6">
           {/* Circular Risk Level Gauge */}
           <div className="flex-shrink-0">
-            <div className="relative w-24 h-24">
+            <div className="relative w-29 h-29" style={{ width: '116px', height: '116px' }}>
               <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
                 {/* Background circle */}
                 <circle 
@@ -107,7 +92,7 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
                   {scenario.riskLevel.split(' ').map((word, index) => (
-                    <div key={index} className="text-xs font-bold text-gray-900 uppercase leading-none">
+                    <div key={index} className="text-[10px] font-bold text-gray-900 uppercase leading-tight">
                       {word}
                     </div>
                   ))}
@@ -166,22 +151,9 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
 
         {/* App Recommendation Box */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <div className="flex items-start space-x-3">
-            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <i className="fas fa-robot text-white text-sm"></i>
-            </div>
-            <div className="flex-1 space-y-2">
-              <p className="text-sm text-gray-700 leading-relaxed">
-                {getScenarioRecommendation(scenario)}
-              </p>
-              <div className="flex items-start space-x-2">
-                <i className="fas fa-pills text-yellow-500 text-sm mt-0.5 flex-shrink-0"></i>
-                <p className="text-sm text-gray-700">
-                  {getScenarioAdvice(scenario)}
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            {getScenarioRecommendation(scenario)}
+          </p>
         </div>
       </Card>
     </div>
