@@ -41,14 +41,8 @@ export default function Home() {
   };
 
   const handleSuggestedQuestion = (question: string) => {
-    if (question && sessionId) {
-      const userMessage: ChatMessage = {
-        role: 'user',
-        content: question,
-        timestamp: new Date().toISOString()
-      };
-      setMessages(prev => [...prev, userMessage]);
-    }
+    // This function is no longer needed as suggested questions now populate the input field
+    // instead of sending messages directly
   };
 
   return (

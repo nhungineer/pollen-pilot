@@ -67,7 +67,7 @@ export function SimpleChatInterface({
   };
 
   const handleSuggestedClick = (question: string) => {
-    onSuggestedQuestion(question);
+    setInputMessage(question);
   };
 
   useEffect(() => {
