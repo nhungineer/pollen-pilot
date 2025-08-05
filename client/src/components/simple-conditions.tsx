@@ -46,7 +46,7 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
       {/* Current Conditions Card */}
       <Card className="p-4 pb-2">
         {/* Layout with Circular Risk Gauge and Weather Data */}
-        <div className="flex items-start space-x-6 mb-6">
+        <div className="flex items-start space-x-6 mb-2">
           {/* Circular Risk Level Gauge */}
           <div className="flex-shrink-0">
             <div className="text-center mb-2">
@@ -89,8 +89,8 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
             </div>
           </div>
 
-          {/* Weather Data Grid */}
-          <div className="flex-1 grid grid-cols-2 gap-3">
+            {/* Weather Data Grid */}
+            <div className="flex-1 grid grid-cols-2 gap-3">
             {/* Pollen Count */}
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
@@ -138,7 +138,7 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
         </div>
 
         {/* Data Source Caption */}
-        <div className="mt-1 pt-1 border-t border-gray-100">
+        <div className="mt-0 pt-1 border-t border-gray-100">
           <p className="text-xs text-gray-400">
             Source: BOM, Melbourne Pollen, last updated {new Date().toLocaleTimeString('en-AU', { 
               hour: '2-digit', 
