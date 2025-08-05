@@ -75,34 +75,44 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
 
       {/* Current Conditions Card */}
       <Card className="p-4">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Current conditions</h2>
-        
-        {/* Layout with Risk Gauge and Weather Data */}
-        <div className="flex items-start space-x-6 mb-4">
-          {/* Risk Level Gauge */}
+        {/* Layout with Circular Risk Gauge and Weather Data */}
+        <div className="flex items-start space-x-6 mb-6">
+          {/* Circular Risk Level Gauge */}
           <div className="flex-shrink-0">
-            <div className="relative w-20 h-12">
-              <svg viewBox="0 0 100 60" className="w-full h-full">
-                {/* Background arc segments */}
-                <path d="M 15 45 A 25 25 0 0 1 45 20" stroke="#22c55e" strokeWidth="8" fill="none" />
-                <path d="M 45 20 A 25 25 0 0 1 55 20" stroke="#eab308" strokeWidth="8" fill="none" />
-                <path d="M 55 20 A 25 25 0 0 1 85 45" stroke="#ef4444" strokeWidth="8" fill="none" />
-                
-                {/* Needle */}
-                <line
-                  x1="50"
-                  y1="45"
-                  x2={50 + 20 * Math.cos(Math.PI - (Math.PI * (riskNumeric - 1)) / 4)}
-                  y2={45 - 20 * Math.sin(Math.PI - (Math.PI * (riskNumeric - 1)) / 4)}
-                  stroke="#374151"
-                  strokeWidth="2"
-                  strokeLinecap="round"
+            <div className="relative w-24 h-24">
+              <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
+                {/* Background circle */}
+                <circle 
+                  cx="50" 
+                  cy="50" 
+                  r="35" 
+                  stroke="#e5e7eb" 
+                  strokeWidth="8" 
+                  fill="none"
                 />
-                <circle cx="50" cy="45" r="2" fill="#374151" />
+                {/* Progress circle with gradient colors based on risk */}
+                <circle 
+                  cx="50" 
+                  cy="50" 
+                  r="35" 
+                  stroke={riskColor}
+                  strokeWidth="8" 
+                  fill="none"
+                  strokeDasharray={`${(riskNumeric / 5) * 220} 220`}
+                  strokeLinecap="round"
+                  className="transition-all duration-500"
+                />
               </svg>
-            </div>
-            <div className="text-center mt-1">
-              <span className="text-sm font-medium text-gray-900">{scenario.riskLevel} risk</span>
+              {/* Risk level text in center */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  {scenario.riskLevel.split(' ').map((word, index) => (
+                    <div key={index} className="text-xs font-bold text-gray-900 uppercase leading-none">
+                      {word}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -154,29 +164,21 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
           </div>
         </div>
 
-        {/* Conditions Description */}
-        <p className="text-sm text-gray-700 mb-4 text-left">
-          {scenario.conditions}. Conditions to persist until evening southerly change.
-        </p>
-
-        {/* Basic Recommendations */}
-        <div>
-          <h3 className="font-semibold text-gray-900 mb-3 text-left">Recommendations</h3>
-          <div className="space-y-3">
-            <div className="text-left">
-              <div className="space-y-2">
-                <div className="font-semibold text-blue-600">7:00AM</div>
-                <div className="space-y-2">
-                  <p className="text-sm text-gray-700 leading-relaxed">
-                    {getScenarioRecommendation(scenario)}
-                  </p>
-                  <div className="flex items-start space-x-2">
-                    <i className="fas fa-pills text-yellow-500 text-sm mt-0.5 flex-shrink-0"></i>
-                    <p className="text-sm text-gray-700">
-                      {getScenarioAdvice(scenario)}
-                    </p>
-                  </div>
-                </div>
+        {/* App Recommendation Box */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-start space-x-3">
+            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <i className="fas fa-robot text-white text-sm"></i>
+            </div>
+            <div className="flex-1 space-y-2">
+              <p className="text-sm text-gray-700 leading-relaxed">
+                {getScenarioRecommendation(scenario)}
+              </p>
+              <div className="flex items-start space-x-2">
+                <i className="fas fa-pills text-yellow-500 text-sm mt-0.5 flex-shrink-0"></i>
+                <p className="text-sm text-gray-700">
+                  {getScenarioAdvice(scenario)}
+                </p>
               </div>
             </div>
           </div>

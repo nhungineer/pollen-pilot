@@ -65,14 +65,15 @@ export const scenarios: PollenScenario[] = [
 export const getRiskLevelColor = (riskLevel: string): string => {
   switch (riskLevel.toLowerCase()) {
     case 'low':
-      return 'hsl(142, 76%, 36%)'; // green
+      return '#22c55e'; // green
     case 'moderate':
-      return 'hsl(38, 92%, 50%)'; // amber
+      return '#eab308'; // yellow
     case 'high':
+      return '#f59e0b'; // amber
     case 'very high':
-      return 'hsl(0, 84%, 60%)'; // red
+      return '#ef4444'; // red
     case 'extreme':
-      return 'hsl(20, 14%, 4%)'; // dark brown
+      return '#dc2626'; // dark red
     default:
       return 'hsl(0, 0%, 50%)'; // gray
   }
