@@ -30,8 +30,17 @@ export function SimpleChatInterface({
 }: SimpleChatInterfaceProps) {
   const [inputMessage, setInputMessage] = useState('');
   const [usedQuestions, setUsedQuestions] = useState<string[]>([]);
+  const [currentScenario, setCurrentScenario] = useState(scenario);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Reset used questions when scenario changes
+  useEffect(() => {
+    if (currentScenario !== scenario) {
+      setUsedQuestions([]);
+      setCurrentScenario(scenario);
+    }
+  }, [scenario, currentScenario]);
 
   const sendMessageMutation = useMutation({
     mutationFn: async (message: string) => {
