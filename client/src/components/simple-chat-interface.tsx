@@ -173,7 +173,7 @@ export function SimpleChatInterface({
         <div className="flex space-x-2 mb-4">
           <Input
             type="text"
-            placeholder="Ask about your hayfever management"
+            placeholder="e.g. Should I walk the dog at 3?"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}

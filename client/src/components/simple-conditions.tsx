@@ -58,12 +58,22 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
         </Select>
       </div>
 
+      {/* App Recommendation Box - Moved above conditions */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+        <p className="text-sm text-gray-700 leading-relaxed">
+          {getScenarioRecommendation(scenario)}
+        </p>
+      </div>
+
       {/* Current Conditions Card */}
       <Card className="p-4 pb-2">
         {/* Layout with Circular Risk Gauge and Weather Data */}
         <div className="flex items-start space-x-6 mb-6">
           {/* Circular Risk Level Gauge */}
           <div className="flex-shrink-0">
+            <div className="text-center mb-2">
+              <p className="text-xs text-gray-600 font-medium">Hay fever risk</p>
+            </div>
             <div className="relative w-29 h-29" style={{ width: '116px', height: '116px' }}>
               <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
                 {/* Background circle */}
@@ -161,13 +171,6 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
         </div>
 
       </Card>
-      
-      {/* App Recommendation Box - Moved outside */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-2">
-        <p className="text-sm text-gray-700 leading-relaxed">
-          {getScenarioRecommendation(scenario)}
-        </p>
-      </div>
     </div>
   );
 }
