@@ -138,7 +138,7 @@ export function SimpleConditions({ scenario, onScenarioChange }: SimpleCondition
         </div>
 
         {/* Data Source Caption */}
-        <div className="mt-2 pt-2 border-t border-gray-100">
+        <div className="mt-1 pt-1 border-t border-gray-100">
           <p className="text-xs text-gray-400">
             Source: BOM, Melbourne Pollen, last updated {new Date().toLocaleTimeString('en-AU', { 
               hour: '2-digit', 

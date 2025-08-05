@@ -125,11 +125,11 @@ export function SimpleChatInterface({
         <Card className="border border-gray-200 mb-4">
           <div className="p-4 space-y-4">
             <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-sm font-bold">P</span>
+              <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <i className="fas fa-seedling text-white text-xs"></i>
               </div>
               <div className="flex-1">
-                <div className="bg-blue-50 rounded-lg p-3">
+                <div className="bg-gray-50 rounded-lg p-3">
                   <p className="text-sm text-gray-700 leading-relaxed">
                     {getScenarioRecommendation(scenario)}
                   </p>
