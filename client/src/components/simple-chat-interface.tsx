@@ -29,6 +29,7 @@ export function SimpleChatInterface({
   onSuggestedQuestion
 }: SimpleChatInterfaceProps) {
   const [inputMessage, setInputMessage] = useState('');
+  const [usedQuestions, setUsedQuestions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -68,6 +69,7 @@ export function SimpleChatInterface({
 
   const handleSuggestedClick = (question: string) => {
     setInputMessage(question);
+    setUsedQuestions(prev => [...prev, question]);
   };
 
   useEffect(() => {
@@ -92,29 +94,7 @@ export function SimpleChatInterface({
         <h3 className="text-lg font-semibold text-gray-900 mb-2">Ask PollenPilot</h3>
         <p className="text-sm text-gray-600 mb-4">Get personalised recommendations based on your plan</p>
 
-        {/* Suggested Questions */}
-        {messages.length === 0 && (
-          <div className="mb-4">
-            <p className="text-sm text-gray-500 mb-3">Try asking</p>
-            <div className="space-y-2">
-              {suggestedQuestions.map((question, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="w-full justify-start text-left h-auto py-3 px-4 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
-                  onClick={() => handleSuggestedClick(question)}
-                >
-                  <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <i className="fas fa-comment text-blue-600 text-xs"></i>
-                    </div>
-                    <span className="text-sm">{question}</span>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
+
 
         {/* Chat Messages */}
         {messages.length > 0 && (
@@ -181,7 +161,7 @@ export function SimpleChatInterface({
         )}
 
         {/* Chat Input */}
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 mb-4">
           <Input
             type="text"
             placeholder="Ask about your hayfever management"
@@ -199,6 +179,32 @@ export function SimpleChatInterface({
             <i className="fas fa-paper-plane text-sm"></i>
           </Button>
         </div>
+
+        {/* Suggested Questions - Now below input */}
+        {messages.length === 0 && (
+          <div>
+            <p className="text-sm text-gray-500 mb-3">Try asking</p>
+            <div className="space-y-2">
+              {suggestedQuestions
+                .filter(question => !usedQuestions.includes(question))
+                .map((question, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  className="w-full justify-start text-left h-auto py-3 px-4 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+                  onClick={() => handleSuggestedClick(question)}
+                >
+                  <div className="flex items-center space-x-2">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i className="fas fa-comment text-blue-600 text-xs"></i>
+                    </div>
+                    <span className="text-sm">{question}</span>
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
