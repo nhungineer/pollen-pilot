@@ -125,8 +125,11 @@ export function SimpleChatInterface({
         <Card className="border-0 shadow-lg rounded-2xl mb-6 bg-gradient-to-br from-white to-gray-50/30">
           <div className="p-6 space-y-4">
             <div className="flex items-start space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                <i className="fas fa-seedling text-white text-sm"></i>
+              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L13.5 8.5L20 7L14.5 12L20 17L13.5 15.5L12 22L10.5 15.5L4 17L9.5 12L4 7L10.5 8.5L12 2Z" fill="white"/>
+                  <circle cx="12" cy="12" r="2" fill="white" fillOpacity="0.8"/>
+                </svg>
               </div>
               <div className="flex-1">
                 <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-4 shadow-sm">
@@ -146,8 +149,11 @@ export function SimpleChatInterface({
               {messages.map((message, index) => (
                 <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'space-x-3'}`}>
                   {message.role === 'assistant' && (
-                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                      <i className="fas fa-seedling text-white text-sm"></i>
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L13.5 8.5L20 7L14.5 12L20 17L13.5 15.5L12 22L10.5 15.5L4 17L9.5 12L4 7L10.5 8.5L12 2Z" fill="white"/>
+                        <circle cx="12" cy="12" r="2" fill="white" fillOpacity="0.8"/>
+                      </svg>
                     </div>
                   )}
                   
@@ -183,8 +189,11 @@ export function SimpleChatInterface({
 
               {sendMessageMutation.isPending && (
                 <div className="flex space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <i className="fas fa-seedling text-white text-sm"></i>
+                  <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L13.5 8.5L20 7L14.5 12L20 17L13.5 15.5L12 22L10.5 15.5L4 17L9.5 12L4 7L10.5 8.5L12 2Z" fill="white"/>
+                      <circle cx="12" cy="12" r="2" fill="white" fillOpacity="0.8"/>
+                    </svg>
                   </div>
                   <div className="flex-1">
                     <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-4 shadow-sm">
