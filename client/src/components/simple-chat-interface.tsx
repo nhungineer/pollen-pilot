@@ -32,9 +32,9 @@ interface SimpleChatInterfaceProps {
 }
 
 const suggestedQuestions = [
-  "Should I leave the window open?",
+  "When is it safe to open windows?",
   "Can I go for a run this evening?",
-  "Is picnic a good idea this weekend?"
+  "Best time today for gardening?"
 ];
 
 export function SimpleChatInterface({
