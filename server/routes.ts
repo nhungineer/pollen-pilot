@@ -174,6 +174,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
               .replace("-", "") as keyof typeof activityRules
           ] || activityRules.moderate;
 
+        // Adjust recommendations based on humidity
+        let humidityNote = "";
+        if (scenario.humidity >= 70) {
+          humidityNote = `High humidity (${scenario.humidity}%) keeps pollen grounded - conditions better than expected! `;
+        } else if (scenario.humidity <= 40) {
+          humidityNote = `Low humidity (${scenario.humidity}%) keeps pollen airborne longer - extra caution needed! `;
+        }
+
         return `You are PollenPilot, Melbourne's AI hayfever management assistant.
 
       CURRENT TIME: ${currentTime}
@@ -190,7 +198,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
    - LOWEST LEVELS: 10pm-5am (pollen settles overnight)
    - Hot northerly winds = danger (bring countryside pollen)
    - Cool southerly winds = relief (ocean air)
-   - Thunderstorm asthma: pollen 50+ + humidity 80+ + storms
+   - HUMIDITY EFFECTS: High humidity (70%+) normally keeps pollen grounded = BETTER conditions, Low humidity (<30%) allows pollen to stay airborne longer = worse symptoms
+   - EXCEPTION - Thunderstorm asthma: pollen 50+ + humidity 80+ + approaching storms = EXTREME DANGER (humidity breaks pollen into smaller fragments that penetrate deeper into lungs)
 
       OUTDOOR ACTIVITY DECISION RULES (ALWAYS FOLLOW EXACTLY):
       Risk Level: ${scenario.riskLevel} (${scenario.grassPollen} grains/m³)
