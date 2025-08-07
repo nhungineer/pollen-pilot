@@ -11,7 +11,7 @@ import { type PollenScenario } from "@/data/scenarios";
 const getScenarioRecommendation = (scenario: PollenScenario) => {
   switch (scenario.name) {
     case "Classic Bad Day - Melbourne Cup Day":
-      return `👋 Morning, today's looking challenging 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) and gusty northerly 💨. Don't forget to take antihistamine 💊, and stay indoor 🏡 till after 3PM.`;
+      return `👋 Morning, today's looking challenging 😰 - high grass pollen 🌾 (${scenario.grassPollen} grains/m³) and gusty northerly 💨. Don't forget to take antihistamine 💊, and stay indoor 🏡.`;
     case "Deceptive Calm":
       return `👋 Morning! Today's moderate challenge 😐 - grass pollen 🌾 (${scenario.grassPollen} grains/m³) with light winds 💨. Take your antihistamine 💊 and limit outdoor time 🏡 till afternoon.`;
     case "Thunderstorm Asthma Risk":
