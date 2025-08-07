@@ -9,6 +9,12 @@ export interface PollenScenario {
   riskLevel: string;
   conditions: string;
   confidence: string;
+  pollen_threshold: number;
+  activity_type: string;
+  risk_level: string;
+  safe_times: string[];
+  avoid_times: string[];
+  alternatives: string[];
 }
 
 export const scenarios: PollenScenario[] = [
@@ -22,11 +28,11 @@ export const scenarios: PollenScenario[] = [
     humidity: 42,
     riskLevel: "Very High",
     conditions: "Hot northerly winds bringing pollen from countryside",
-    confidence: "High - matches historical Cup Day patterns"
+    confidence: "High - matches historical Cup Day patterns",
   },
   {
     name: "Deceptive Calm",
-    date: "October 15, 2024", 
+    date: "October 15, 2024",
     grassPollen: 45,
     windSpeed: 6,
     windDirection: "Variable",
@@ -34,7 +40,7 @@ export const scenarios: PollenScenario[] = [
     humidity: 68,
     riskLevel: "Moderate",
     conditions: "Still air, moderate pollen - easy to underestimate",
-    confidence: "Moderate - pollen can vary in calm conditions"
+    confidence: "Moderate - pollen can vary in calm conditions",
   },
   {
     name: "Thunderstorm Asthma Risk",
@@ -45,49 +51,50 @@ export const scenarios: PollenScenario[] = [
     temperature: 26,
     humidity: 85,
     riskLevel: "Extreme",
-    conditions: "Thunderstorm approaching with high pollen - dangerous combination",
-    confidence: "High - enhanced forecasting system active since 2017"
+    conditions:
+      "Thunderstorm approaching with high pollen - dangerous combination",
+    confidence: "High - enhanced forecasting system active since 2017",
   },
   {
     name: "Southerly Relief",
     date: "November 12, 2024",
     grassPollen: 15,
     windSpeed: 12,
-    windDirection: "South", 
+    windDirection: "South",
     temperature: 19,
     humidity: 58,
     riskLevel: "Low",
     conditions: "Cool southerly winds from ocean clearing the air",
-    confidence: "High - southerlies consistently bring relief"
-  }
+    confidence: "High - southerlies consistently bring relief",
+  },
 ];
 
 export const getRiskLevelColor = (riskLevel: string): string => {
   switch (riskLevel.toLowerCase()) {
-    case 'low':
-      return '#22c55e'; // green
-    case 'moderate':
-      return '#eab308'; // yellow
-    case 'high':
-      return '#f59e0b'; // amber
-    case 'very high':
-      return '#ef4444'; // red
-    case 'extreme':
-      return '#dc2626'; // dark red
+    case "low":
+      return "#22c55e"; // green
+    case "moderate":
+      return "#eab308"; // yellow
+    case "high":
+      return "#f59e0b"; // amber
+    case "very high":
+      return "#ef4444"; // red
+    case "extreme":
+      return "#dc2626"; // dark red
     default:
-      return 'hsl(0, 0%, 50%)'; // gray
+      return "hsl(0, 0%, 50%)"; // gray
   }
 };
 
 export const getFlowDescription = (flow: string): string => {
   switch (flow) {
-    case 'Morning Check-in':
-      return 'Start your day with current risk levels and proactive recommendations';
-    case 'Activity Planning':
-      return 'Get specific timing advice for outdoor activities and alternatives';
-    case 'Bad Day Recovery':
-      return 'Immediate relief strategies and validation during symptom flare-ups';
+    case "Morning Check-in":
+      return "Start your day with current risk levels and proactive recommendations";
+    case "Activity Planning":
+      return "Get specific timing advice for outdoor activities and alternatives";
+    case "Bad Day Recovery":
+      return "Immediate relief strategies and validation during symptom flare-ups";
     default:
-      return 'AI-powered hayfever management for Melbourne residents';
+      return "AI-powered hayfever management for Melbourne residents";
   }
 };
