@@ -33,14 +33,14 @@ interface SimpleChatInterfaceProps {
 
 const suggestedQuestions = [
   "Should I leave the window open?",
-  "Can I go for a run this evening?", 
+  "Can I go for a run this evening?",
   "Is picnic a good idea this weekend?"
 ];
 
-export function SimpleChatInterface({ 
-  sessionId, 
-  scenario, 
-  messages, 
+export function SimpleChatInterface({
+  sessionId,
+  scenario,
+  messages,
   onMessagesUpdate,
   onSuggestedQuestion
 }: SimpleChatInterfaceProps) {
@@ -156,15 +156,15 @@ export function SimpleChatInterface({
                       </svg>
                     </div>
                   )}
-                  
+
                   <div className={`flex-1 ${message.role === 'user' ? 'max-w-xs' : ''}`}>
                     <div className={`rounded-2xl p-4 ${
-                      message.role === 'user' 
-                        ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white ml-auto shadow-lg' 
+                      message.role === 'user'
+                        ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white ml-auto shadow-lg'
                         : 'bg-gradient-to-br from-gray-50 to-gray-100/50 shadow-sm'
                     }`}>
                       {message.role === 'assistant' ? (
-                        <div className="text-sm" dangerouslySetInnerHTML={{ 
+                        <div className="text-sm" dangerouslySetInnerHTML={{
                           __html: message.content
                             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                             .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -175,7 +175,7 @@ export function SimpleChatInterface({
                         <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                       )}
                     </div>
-                    
+
                     {message.role === 'assistant' && (
                       <div className="flex items-center space-x-2 mt-2">
                         <span className="text-xs text-gray-500">
@@ -220,10 +220,10 @@ export function SimpleChatInterface({
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-            className="flex-1 text-base border-0 bg-white rounded-2xl shadow-sm px-5 py-4 focus:ring-2 focus:ring-indigo-500 focus:shadow-lg transition-all duration-200"
+            className="flex-1 text-base border-2 border-gray-900 bg-white rounded-2xl shadow-sm px-5 py-4 focus:ring-2 focus:ring-indigo-500 focus:shadow-lg transition-all duration-200"
             disabled={sendMessageMutation.isPending}
           />
-          <Button 
+          <Button
             onClick={handleSendMessage}
             disabled={!inputMessage.trim() || sendMessageMutation.isPending}
             className="px-6 py-4 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 transition-all duration-200 rounded-2xl shadow-lg hover:shadow-xl border-0"
